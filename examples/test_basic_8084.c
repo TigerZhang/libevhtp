@@ -23,7 +23,7 @@ rootcb(evhtp_request_t *req, void *a) {
     DEFINESERVERLIST
 
     cur++;
-    cur = cur % (sizeof(str)/sizeof(str[0]));
+    cur = cur % 3;
     evbuffer_add_printf(req->buffer_out, "%s", str[cur]);
     evhtp_headers_add_header(req->headers_out, evhtp_header_new("Content-Type", "application/json", 0, 0));
     evhtp_send_reply(req, EVHTP_RES_OK);
@@ -41,7 +41,7 @@ main(int argc, char ** argv) {
 #ifndef EVHTP_DISABLE_EVTHR
     evhtp_use_threads(htp, NULL, 4, NULL);
 #endif
-    evhtp_bind_socket(htp, "0.0.0.0", 8081, 1024);
+    evhtp_bind_socket(htp, "0.0.0.0", 8084, 1024);
 
     event_base_loop(evbase, 0);
 
