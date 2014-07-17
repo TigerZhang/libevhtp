@@ -23,7 +23,7 @@ rootcb(evhtp_request_t *req, void *a) {
     DEFINESERVERLIST
 
     cur++;
-    cur = cur % 3;
+    cur = cur % (sizeof(str)/sizeof(str[0]));
     evbuffer_add_printf(req->buffer_out, "%s", str[cur]);
     evhtp_headers_add_header(req->headers_out, evhtp_header_new("Content-Type", "application/json", 0, 0));
     evhtp_send_reply(req, EVHTP_RES_OK);
